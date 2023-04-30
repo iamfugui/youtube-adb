@@ -6,7 +6,7 @@
 // @name:zh-MO   YouTube去廣告
 
 // @namespace    http://tampermonkey.net/
-// @version      3.0
+// @version      3.8
 
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告。
@@ -204,7 +204,8 @@
                 }
 
                 videoLink = location.href.split(`&`)[0];//更新链接
-                lastTime = currentTime;
+
+                lastTime = currentTime>2?currentTime:lastTime;//广告标签节点出现时间会与广告出现时间存在偏差 当进度条时间小于2时，判定为广告记录条，不记录
                 currentTime = video.currentTime;//未检测到广告,记录播放进度
                 log(`查看上一次进度${lastTime}`);
                 log(`查看当前进度${currentTime}`);
@@ -232,7 +233,7 @@
                     log(`查看上一次进度${lastTime}`);
                     log(`查看当前进度${currentTime}`);
                     video.pause();//暂停播放避免继续请求资源
-                    log(`刚刚监听到了广告节点变化并使用按钮跳过了一条广告`);
+                    log(`刚刚监听到了广告节点变化并即将跳过了一条广告`);
                     location.replace(getSkipAdUrl());//得到跳转的url,重新加载.
                     closeObserve();
                     return false;//终止
