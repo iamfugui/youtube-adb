@@ -6,13 +6,13 @@
 // @name:zh-MO   YouTube去廣告
 
 // @namespace    http://tampermonkey.net/
-// @version      3.8
+// @version      4.0
 
-// @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads.
-// @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告。
-// @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告。
-// @description:zh-HK   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告。
-// @description:zh-MO   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告。
+// @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
+// @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
+// @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
+// @description:zh-HK   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
+// @description:zh-MO   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
 
 // @author       iamfugui
 // @match        *://*.youtube.com/*
@@ -190,6 +190,7 @@
 
             //广告节点监听
             const targetNode = document.querySelector(`.video-ads.ytp-ad-module`);
+
             //这个视频不存在广告
             if(!targetNode){
                 return false;
@@ -230,12 +231,13 @@
                 //没有跳过按钮的短广告.
                 let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`);
                 if(shortAdMsg){
-                    log(`查看上一次进度${lastTime}`);
-                    log(`查看当前进度${currentTime}`);
-                    video.pause();//暂停播放避免继续请求资源
-                    log(`刚刚监听到了广告节点变化并即将跳过了一条广告`);
-                    location.replace(getSkipAdUrl());//得到跳转的url,重新加载.
-                    closeObserve();
+                    //log(`查看上一次进度${lastTime}`);
+                    //log(`查看当前进度${currentTime}`);
+                    //video.pause();//暂停播放避免继续请求资源
+                    log(`刚刚监听到了广告节点变化并即将跳过一条广告`);
+                    //location.replace(getSkipAdUrl());//得到跳转的url,重新加载.
+                    //closeObserve();
+                    video.currentTime = 99999999;
                     return false;//终止
                 }
 
