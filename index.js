@@ -4,16 +4,13 @@
 // @name:zh-TW   YouTube去廣告
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
-
 // @namespace    http://tampermonkey.net/
-// @version      4.0
-
+// @version      5.0
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
 // @description:zh-HK   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
 // @description:zh-MO   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
-
 // @author       iamfugui
 // @match        *://*.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=YouTube.com
@@ -22,8 +19,6 @@
 // ==/UserScript==
 (function() {
     `use strict`;
-
-    const dev = false;//开发使用
 
     //界面广告选择器
     const cssSeletorArr = [
@@ -37,11 +32,8 @@
         `ytd-ad-slot-renderer`,//搜索页广告.
         `yt-mealbar-promo-renderer`,//播放页会员推荐广告.
     ];
-
-    let lastTime = parseInt(getUrlParams(`t`))||0;//由于youtube出现广告前是先将进度条归零再进行广告node的更新,故此将上一次进度记录
-    let currentTime = parseInt(getUrlParams(`t`))||0;//根据url初始化当前播放时间s
-    let videoLink = `${location.href.split(`&`)[0]}`;//当前视频链接
-    let video;
+    const dev = false;//开发使用
+    let video;//视频dom
 
     /**
     * 将标准时间格式化
@@ -63,7 +55,6 @@
             return `${y}-${m}-${d} ${h}:${min}:${s}`
         }
     }
-
 
     /**
     * 输出信息
@@ -106,21 +97,6 @@
     }
 
     /**
-    * 得到跳过链接
-    * @return {String}
-    */
-    function getSkipAdUrl(){
-        let urlParams = getUrlParams();
-        let url = `${videoLink}`;
-        for(let key in urlParams){
-            if(key !== `v` && key !== `t`){
-                url = `${url}&${key}=${urlParams[key]}`
-            }
-        }
-        return `${url}&t=${parseInt(lastTime)}s`;
-    }
-
-    /**
     * 生成去除广告的css元素style并附加到HTML节点上
     * @param {String} styles 样式文本
     * @param {String} styleId 元素id
@@ -153,36 +129,12 @@
         return cssSeletorArr.join(` `);//拼接成字符串.
     }
 
-
-    /**
-    * 检测用户切换了视频
-    * @return {undefined}
-    */
-    function switchVideoHook(){
-        if(videoLink !== `${location.href.split(`&`)[0]}`){
-            videoLink = location.href.split(`&`)[0];//更新链接
-            lastTime = parseInt(getUrlParams(`t`))||0;//根据url初始化当前播放时间s
-            currentTime = parseInt(getUrlParams(`t`))||0;//根据url初始化当前播放时间s
-            log(`检测到用户切换了视频,已更新播放进度`)
-        }
-    }
-
     /**
     * 去除播放中的广告
     * @return {undefined}
     */
     function removePlayerAD(){
         let observer;//监听器
-        let progress;//进度条node
-        let updateTimerId;//信息更新定时器
-
-        //该函数主要是避免定时器对视频进度监听太慢导致进度条在跳转广告后出现偏移的情况
-        let clickProgressHandler = function(){
-            lastTime = video.currentTime;//记录播放进度
-            currentTime = video.currentTime;//记录播放进度
-            log(`监听到点击了进度条`);
-            log(lastTime);
-        }
 
         //开始监听
         function startObserve(){
@@ -193,32 +145,14 @@
 
             //这个视频不存在广告
             if(!targetNode){
+                log(`这个视频不存在广告`);
                 return false;
             }
-
-            //定时更新视频信息
-            function updateCall(){
-                switchVideoHook();//检测用户是否切换了视频
-
-                if(!video){
-                    return false;
-                }
-
-                videoLink = location.href.split(`&`)[0];//更新链接
-
-                lastTime = currentTime>2?currentTime:lastTime;//广告标签节点出现时间会与广告出现时间存在偏差 当进度条时间小于2时，判定为广告记录条，不记录
-                currentTime = video.currentTime;//未检测到广告,记录播放进度
-                log(`查看上一次进度${lastTime}`);
-                log(`查看当前进度${currentTime}`);
-            }
-            updateTimerId =setInterval(updateCall,1000);
 
             // 监听视频中的广告并处理
             const config = {childList: true, subtree: true };// 监听目标节点本身与子树下节点的变动
             // 当观察到变动时执行的回调函数
             const callback = function (mutationsList, observer) {
-                switchVideoHook();//检测用户是否切换了视频
-
                 //拥有跳过按钮的广告.
                 let skipButton = document.querySelector(`.ytp-ad-skip-button`);
                 if(skipButton)
@@ -231,13 +165,8 @@
                 //没有跳过按钮的短广告.
                 let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`);
                 if(shortAdMsg){
-                    //log(`查看上一次进度${lastTime}`);
-                    //log(`查看当前进度${currentTime}`);
-                    //video.pause();//暂停播放避免继续请求资源
                     log(`刚刚监听到了广告节点变化并即将跳过一条广告`);
-                    //location.replace(getSkipAdUrl());//得到跳转的url,重新加载.
-                    //closeObserve();
-                    video.currentTime = 99999999;
+                    video.currentTime = 1024;
                     return false;//终止
                 }
 
@@ -246,33 +175,25 @@
             }
             observer = new MutationObserver(callback);// 创建一个观察器实例并传入回调函数
             observer.observe(targetNode, config);// 以上述配置开始观察广告节点
-
-            //监听点击进度条并处理
-            progress = document.querySelector(`.ytp-progress-bar-container`);
-            progress.addEventListener(`click`,clickProgressHandler);
         }
 
         //结束监听
         function closeObserve(){
             observer.disconnect();
-            clearInterval(updateTimerId);
-            progress.removeEventListener(`click`,clickProgressHandler);
-            updateTimerId = null;
             observer = null;
-            progress = null;
         }
 
         //轮询任务
         setInterval(function(){
             //视频播放页
             if(getUrlParams(`v`)){
-                if(observer && updateTimerId && progress){
+                if(observer){
                     return false;
                 }
                 startObserve();
             }else{
                 //其它界面
-                if(!observer && !updateTimerId && !progress){
+                if(!observer){
                     return false;
                 }
                 closeObserve();
