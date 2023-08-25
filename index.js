@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    http://tampermonkey.net/
-// @version      5.3
+// @version      5.5
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
@@ -101,21 +101,21 @@
     /**
     * 生成去除广告的css元素style并附加到HTML节点上
     * @param {String} styles 样式文本
-    * @param {String} styleId 元素id
     * @return {undefined}
     */
-    function generateRemoveADHTMLElement(styles,styleId) {
+    function generateRemoveADHTMLElement(styles) {
         //如果已经设置过,退出.
-        if (document.getElementById(styleId)) {
+        if (document.getElementById(`RemoveADHTMLElement`)) {
+            log(`屏蔽页面广告节点已生成`);
             return false
         }
 
         //设置移除广告样式.
         let style = document.createElement(`style`);//创建style元素.
-        style.id = styleId;
+        style.id = `RemoveADHTMLElement`;
         (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
         style.appendChild(document.createTextNode(styles));//附加样式节点到元素节点.
-        log(`屏蔽页面广告节点已生成`)
+        log(`生成屏蔽页面广告节点成功`)
 
     }
 
@@ -230,6 +230,18 @@
     * @return {undefined}
     */
     function removePlayerAD(){
+
+        //如果已经在运行,退出.
+        if (document.getElementById(`removePlayerAD`)) {
+            log(`去除播放中的广告功能已在运行`);
+            return false
+        }
+        //设置运行tag.
+        let style = document.createElement(`style`);
+        style.id = `removePlayerAD`;
+        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
+
+
         let observer;//监听器
 
         //开始监听
@@ -285,14 +297,14 @@
             }
         },16);
 
-        log(`去除视频广告脚本持续运行中`)
+        log(`运行去除播放中的广告功能成功`)
     }
 
     /**
     * main函数
     */
     function main(){
-        generateRemoveADHTMLElement(generateRemoveADCssText(cssSeletorArr),`removeAD`);//移除界面中的广告.
+        generateRemoveADHTMLElement(generateRemoveADCssText(cssSeletorArr));//移除界面中的广告.
         removePlayerAD();//移除播放中的广告.
     }
 
