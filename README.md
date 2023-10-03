@@ -11,7 +11,7 @@
 - 对于没有跳过按钮的6s视频广告，可以在毫秒单位内跳过。
 
 ## Introduction
-This is a [GreasyFork](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker) script that removes YouTube ads. It works on both android and PC. For android devices, please install and use it with the [Via Browser](https://viayoo.com/). For PC, please install and use it with [Tampermonkey](https://www.tampermonkey.net/). The code has also been synchronized to [GitHub](https://github.com/iamfugui/YouTube-AD-Blocker).iOS can also be used, maybe.
+This is a [GreasyFork](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker) script that removes YouTube ads. It works on both android and PC. For android devices, please install and use it with the [Via Browser](https://viayoo.com/). For PC, please install and use it with [Tampermonkey](https://www.tampermonkey.net/). The code has also been synchronized to [GitHub](https://github.com/iamfugui/YouTube-AD-Blocker). iOS can also be used, maybe.
 
 ## Principles
 - Use style tags to set the ad removal styles.
