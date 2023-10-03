@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    http://tampermonkey.net/
-// @version      5.5
+// @version      5.92
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
@@ -24,9 +24,10 @@
     const cssSeletorArr = [
         `#masthead-ad`,//首页顶部横幅广告.
         `ytd-rich-item-renderer.style-scope.ytd-rich-grid-row #content:has(.ytd-display-ad-renderer)`,//首页视频排版广告.
-        `ytd-rich-section-renderer #dismissible`,//首页中部横幅广告.
+        //`ytd-rich-section-renderer #dismissible`,//首页中部横幅广告.经反馈会造成探索-直播被屏蔽
         `.video-ads.ytp-ad-module`,//播放器底部广告.
         `tp-yt-paper-dialog:has(yt-mealbar-promo-renderer)`,//播放页会员促销广告.
+        `ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]`,//播放页右上方推荐广告.
         `#related #player-ads`,//播放页评论区右侧推广广告.
         `#related ytd-ad-slot-renderer`,//播放页评论区右侧视频排版广告.
         `ytd-ad-slot-renderer`,//搜索页广告.
@@ -211,6 +212,10 @@
 
             //没有跳过按钮的短广告.
             if(shortAdMsg){
+                if(Number.isNaN(video.duration)){
+                    video = document.querySelector(`.ad-showing video`);
+                    log(`youtube行为改变~~~~~~~~~~~~~`);
+                }
                 log(`强制视频广告~~~~~~~~~~~~~`);
                 log(`总时长:`);
                 log(`${video.duration}`)
