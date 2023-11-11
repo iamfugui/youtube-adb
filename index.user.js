@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    http://tampermonkey.net/
-// @version      5.95
+// @version      5.96
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
@@ -186,7 +186,7 @@
     */
     function skipAd(mutationsList, observer) {
         let video = document.querySelector(`.ad-showing video`) || document.querySelector(`video`);//获取视频节点
-        let skipButton = document.querySelector(`.ytp-ad-skip-button`);
+        let skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
         let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`);
 
         if(!skipButton && !shortAdMsg){
