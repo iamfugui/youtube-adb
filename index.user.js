@@ -4,15 +4,16 @@
 // @name:zh-TW   YouTube去廣告
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
-// @namespace    http://tampermonkey.net/
-// @version      5.96
+// @namespace    https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker
+// @version      5.97
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
 // @description:zh-HK   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
 // @description:zh-MO   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
 // @author       iamfugui
-// @match        *://*.youtube.com/*
+// @match        *://www.youtube.com/*
+// @match        *://m.youtube.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=YouTube.com
 // @grant        none
 // @license MIT
@@ -35,7 +36,7 @@
         `ytm-companion-ad-renderer`,//M可跳过的视频广告链接处
     ];
 
-    window.dev=true;//开发使用
+    window.dev=false;//开发使用
 
     /**
     * 将标准时间格式化
@@ -71,31 +72,37 @@
     }
 
     /**
-    * 获取当前url的参数,如果要查询特定参数请传参
-    * @param {String} 要查询的参数
-    * @return {String || Object}
+    * 设置运行标志
+    * @param {String} name
+    * @return {undefined}
     */
-    function getUrlParams(param) {
-        // 通过 ? 分割获取后面的参数字符串
-        let urlStr = location.href.split(`?`)[1]
-        if(!urlStr){
-            return ``;
-        }
-        // 创建空对象存储参数
-        let obj = {};
-        // 再通过 & 将每一个参数单独分割出来
-        let paramsArr = urlStr.split(`&`)
-        for(let i = 0,len = paramsArr.length;i < len;i++){
-            // 再通过 = 将每一个参数分割为 key:value 的形式
-            let arr = paramsArr[i].split(`=`)
-            obj[arr[0]] = arr[1];
-        }
+    function setRunFlag(name){
+        let style = document.createElement(`style`);
+        style.id = name;
+        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
+    }
 
-        if(!param){
-            return obj;
-        }
+    /**
+    * 获取运行标志
+    * @param {String} name
+    * @return {undefined|Element}
+    */
+    function getRunFlag(name){
+        return document.getElementById(name);
+    }
 
-        return obj[param]||``;
+    /**
+    * 检查是否设置了运行标志
+    * @param {String} name
+    * @return {Boolean}
+    */
+    function checkRunFlag(name){
+        if(getRunFlag(name)){
+            return true;
+        }else{
+            setRunFlag(name)
+            return false;
+        }
     }
 
     /**
@@ -105,14 +112,13 @@
     */
     function generateRemoveADHTMLElement(styles) {
         //如果已经设置过,退出.
-        if (document.getElementById(`RemoveADHTMLElement`)) {
+        if (checkRunFlag(`RemoveADHTMLElement`)) {
             log(`屏蔽页面广告节点已生成`);
             return false
         }
 
         //设置移除广告样式.
         let style = document.createElement(`style`);//创建style元素.
-        style.id = `RemoveADHTMLElement`;
         (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
         style.appendChild(document.createTextNode(styles));//附加样式节点到元素节点.
         log(`生成屏蔽页面广告节点成功`)
@@ -136,8 +142,8 @@
     * @return {undefined}
     */
     function nativeTouch(){
-        const minNum = 100;
-        const maxNum = 999;
+        const minNum = 375;
+        const maxNum = 750;
         const randomNum = (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum)/1000;
 
         let element =this;
@@ -145,10 +151,10 @@
         let touch = new Touch({
             identifier: Date.now(),
             target: element,
-            clientX: 111+randomNum,
-            clientY: 222+randomNum,
-            radiusX: 333+randomNum,
-            radiusY: 444+randomNum,
+            clientX: 12+randomNum,
+            clientY: 34+randomNum,
+            radiusX: 56+randomNum,
+            radiusY: 78+randomNum,
             rotationAngle: 0,
             force: 1
         });
@@ -189,15 +195,8 @@
         let skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
         let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`);
 
-        if(!skipButton && !shortAdMsg){
-            log(`######广告不存在######`);
-            return false;
-        }
-
-        //拥有跳过按钮的广告.
-        if(skipButton)
-        {
-            log(`普通视频广告~~~~~~~~~~~~~`);
+        if(skipButton){
+            //拥有跳过按钮的广告.
             log(`总时长:`);
             log(`${video.duration}`)
             log(`当前时间:`);
@@ -206,19 +205,16 @@
             skipButton.click();//PC
             nativeTouch.call(skipButton);//Phone
             log(`按钮跳过了该广告~~~~~~~~~~~~~`);
-            return false;//终止
-        }
-
-        //没有跳过按钮的短广告.
-        if(shortAdMsg){
-            log(`强制视频广告~~~~~~~~~~~~~`);
+        }else if(shortAdMsg){
+            //没有跳过按钮的短广告.
             log(`总时长:`);
             log(`${video.duration}`)
             log(`当前时间:`);
             log(`${video.currentTime}`)
             video.currentTime = video.duration;
             log(`强制结束了该广告~~~~~~~~~~~~~`);
-            return false;//终止
+        }else{
+            log(`######广告不存在######`);
         }
     }
 
@@ -227,17 +223,11 @@
     * @return {undefined}
     */
     function removePlayerAD(){
-
         //如果已经在运行,退出.
-        if (document.getElementById(`removePlayerAD`)) {
+        if (checkRunFlag(`removePlayerAD`)) {
             log(`去除播放中的广告功能已在运行`);
             return false
         }
-        //设置运行tag.
-        let style = document.createElement(`style`);
-        style.id = `removePlayerAD`;
-        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
-
         let observer;//监听器
         let timerID;//定时器
 
@@ -245,44 +235,24 @@
         function startObserve(){
             //广告节点监听
             const targetNode = document.querySelector(`.video-ads.ytp-ad-module`);
-
-            //这个视频不存在广告
             if(!targetNode){
-                log(`这个视频不存在广告`);
+                log(`正在寻找待监听的目标节点`);
                 return false;
             }
-
             //监听视频中的广告并处理
             const config = {childList: true, subtree: true };// 监听目标节点本身与子树下节点的变动
             observer = new MutationObserver(skipAd);// 创建一个观察器实例并设置处理广告的回调函数
             observer.observe(targetNode, config);// 以上述配置开始观察广告节点
-
-            timerID=setInterval(skipAd, 512);//漏网鱼
-
-        }
-
-        //结束监听
-        function closeObserve(){
-            observer.disconnect();
-            observer = null;
-            clearInterval(timerID);
+            timerID=setInterval(skipAd, 1000);//漏网鱼
         }
 
         //轮询任务
         setInterval(function(){
             //视频播放页
-            if(getUrlParams(`v`)){
-                if(observer){
-                    return false;
-                }
-                startObserve();
-            }else{
-                //其它界面
-                if(!observer){
-                    return false;
-                }
-                closeObserve();
+            if(observer){
+                return false;
             }
+            startObserve();
         },16);
 
         log(`运行去除播放中的广告功能成功`)
