@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker
-// @version      5.97
+// @version      5.98
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
@@ -247,12 +247,12 @@
         }
 
         //轮询任务
-        setInterval(function(){
-            //视频播放页
-            if(observer){
-                return false;
+        let startObserveID = setInterval(()=>{
+            if(!(observer && timerID)){
+                startObserve();
+            }else{
+                clearInterval(startObserveID);
             }
-            startObserve();
         },16);
 
         log(`运行去除播放中的广告功能成功`)
