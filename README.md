@@ -1,23 +1,35 @@
-## 简介
-这是一个去除YouTube广告的[GreasyFork](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker)脚本，轻量且高效，它能丝滑的去除界面广告和视频广告。android电脑双端适用，android端请使用[Via浏览器](https://viayoo.com/)安装使用。PC请使用[Tampermonkey](https://www.tampermonkey.net/)安装使用，代码已同步至[GitHub](https://github.com/iamfugui/YouTube-AD-Blocker)。iOS请自行尝试。
+## 介绍
 
-## 原理
-- 使用style标签设置去除广告样式。
-- 使用MutationObserver监听视频广告并将其去除。
+用于移除油管广告的[UserScript](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker)。支持电脑端和移动端。
 
-## 效果
-- 完全去除界面广告，且后续使用感知不到界面广告的存在。
-- 对于拥有跳过按钮的视频广告，可以在毫秒单位内跳过。
-- 对于没有跳过按钮的6s视频广告，可以在毫秒单位内跳过。
+电脑推荐使用[Tampermonkey](https://www.tampermonkey.net/)安装，
+Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试。
+
+代码已同步至[GitHub](https://github.com/iamfugui/YouTubeADB)。
+
+<div>
+<img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="界面广告"> 
+</div>
+（删除界面广告）
+<div>
+<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="视频广告">
+</div>
+（删除视频广告）
+
 
 ## Introduction
-This is a [GreasyFork](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker) script that removes YouTube ads. It works on both android and PC. For android devices, please install and use it with the [Via Browser](https://viayoo.com/). For PC, please install and use it with [Tampermonkey](https://www.tampermonkey.net/). The code has also been synchronized to [GitHub](https://github.com/iamfugui/YouTube-AD-Blocker). iOS can also be used, maybe.
 
-## Principles
-- Use style tags to set the ad removal styles.
-- Use MutationObserver to listen for video ads and remove them.
+This is a [UserScript](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker) designed to remove ads on YouTube. It is compatible with both desktop and mobile platforms.
 
-## Effects
-- Interface ads are completely removed, and subsequent use cannot perceive the presence of interface ads.
-- For video ads with a skip button, they can be skipped within milliseconds.
-- The 6s video advertisement without a skip button can be skipped in milliseconds.
+For desktop, it is recommended to install using [Tampermonkey](https://www.tampermonkey.net/), while for Android, [Via Browser](https://viayoo.com/) is the recommended installation method. For iOS, it can be installed through individual experimentation.
+
+The code has been synchronized to [GitHub](https://github.com/iamfugui/YouTubeADB).
+
+<div>
+<img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="Interface Ad"> 
+</div>
+(Removing interface ads)
+<div>
+<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="Video Ad">
+</div>
+(Removing video ads)
