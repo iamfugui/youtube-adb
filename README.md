@@ -8,14 +8,13 @@ Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试�
 代码已同步至[GitHub](https://github.com/iamfugui/YouTubeADB)。
 
 <div>
+<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="视频广告">
 <img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="界面广告"> 
 </div>
-（删除界面广告）
-<div>
-<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="视频广告">
-</div>
-（删除视频广告）
+（删除视频和广告界面广告）
 
+## 备注
+有问题请在[GitHub](https://github.com/iamfugui/YouTubeADB)找我。
 
 ## Introduction
 
@@ -26,10 +25,10 @@ For desktop, it is recommended to install using [Tampermonkey](https://www.tampe
 The code has been synchronized to [GitHub](https://github.com/iamfugui/YouTubeADB).
 
 <div>
+<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="Video Ad">
 <img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="Interface Ad"> 
 </div>
-(Removing interface ads)
-<div>
-<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="Video Ad">
-</div>
-(Removing video ads)
+(Remove video ads and interface ads)
+
+## Remark
+Find me on [GitHub](https://github.com/iamfugui/YouTubeADB) if you have any questions.
