@@ -11,7 +11,7 @@ Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试�
 <img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="视频广告">
 <img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="界面广告"> 
 </div>
-（删除视频和广告界面广告）
+（删除视频广告和界面广告）
 
 ## 备注
 有问题请在[GitHub](https://github.com/iamfugui/YouTubeADB)找我。
