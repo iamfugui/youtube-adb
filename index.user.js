@@ -187,7 +187,7 @@
     */
     function skipAd(mutationsList, observer) {
         let video = document.querySelector(`.ad-showing video`) || document.querySelector(`video`);//获取视频节点
-        let skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
+        let skipButton = document.querySelector(`.ytp-skip-ad-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
         let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`);
 
         if(skipButton){
