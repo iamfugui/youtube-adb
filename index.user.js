@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    https://github.com/iamfugui/YouTubeADB
-// @version      6.03
+// @version      6.04
 // @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
 // @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
 // @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
@@ -24,7 +24,6 @@
 // ==/UserScript==
 (function() {
     `use strict`;
-
     //界面广告选择器
     const cssSeletorArr = [
         `#masthead-ad`,//首页顶部横幅广告.
@@ -190,11 +189,14 @@
         let skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-skip-ad-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
         let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`) || document.querySelector(`.ytp-ad-button-icon`);
 
+        if(skipButton || shortAdMsg && window.location.href.indexOf("https://m.youtube.com/") === -1){ //移动端静音有bug
+            video.muted = true;
+            log(`静音~~~~~~~~~~~~~`);
+            video.playbackRate = 16;
+            log(`调速~~~~~~~~~~~~~`);
+        }
+
         if(skipButton){
-            //移动端静音有bug
-            if( window.location.href.indexOf("https://m.youtube.com/") === -1){
-                video.muted = true;
-            }
             if(video.currentTime>0.5){
                 video.currentTime = video.duration;//强制
                 log(`特殊账号跳过按钮广告~~~~~~~~~~~~~`);
@@ -203,11 +205,9 @@
             skipButton.click();//PC
             nativeTouch.call(skipButton);//Phone
             log(`按钮跳过广告~~~~~~~~~~~~~`);
-        }else if(shortAdMsg){
-            video.currentTime = video.duration;
-            log(`强制结束了该广告~~~~~~~~~~~~~`);
-        }else{
-            log(`######广告不存在######`);
+        }else if(shortAdMsg && video.currentTime>0.5){//避免检查
+            video.currentTime = video.duration;//强制
+            log(`强制结束了该广告`);
         }
 
     }
