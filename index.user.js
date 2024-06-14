@@ -79,7 +79,7 @@
     function setRunFlag(name){
         let style = document.createElement(`style`);
         style.id = name;
-        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
+        (document.head || document.body).appendChild(style);//将节点附加到HTML.
     }
 
     /**
@@ -119,7 +119,7 @@
 
         //设置移除广告样式.
         let style = document.createElement(`style`);//创建style元素.
-        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
+        (document.head || document.body).appendChild(style);//将节点附加到HTML.
         style.appendChild(document.createTextNode(generateRemoveADCssText(cssSeletorArr)));//附加样式节点到元素节点.
         log(`生成屏蔽页面广告节点成功`);
     }
