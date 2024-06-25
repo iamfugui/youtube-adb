@@ -25,7 +25,7 @@
 (function() {
     `use strict`;
     //界面广告选择器
-    const cssSeletorArr = [
+    const cssSelectorArr = [
         `#masthead-ad`,//首页顶部横幅广告.
         `ytd-rich-item-renderer.style-scope.ytd-rich-grid-row #content:has(.ytd-display-ad-renderer)`,//首页视频排版广告.
         `.video-ads.ytp-ad-module`,//播放器底部广告.
@@ -120,20 +120,20 @@
         //设置移除广告样式.
         let style = document.createElement(`style`);//创建style元素.
         (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
-        style.appendChild(document.createTextNode(generateRemoveADCssText(cssSeletorArr)));//附加样式节点到元素节点.
+        style.appendChild(document.createTextNode(generateRemoveADCssText(cssSelectorArr)));//附加样式节点到元素节点.
         log(`生成屏蔽页面广告节点成功`);
     }
 
     /**
     * 生成去除广告的css文本
-    * @param {Array} cssSeletorArr 待设置css选择器数组
+    * @param {Array} cssSelectorArr 待设置css选择器数组
     * @return {String}
     */
-    function generateRemoveADCssText(cssSeletorArr){
-        cssSeletorArr.forEach((seletor,index)=>{
-            cssSeletorArr[index]=`${seletor}{display:none!important}`;//遍历并设置样式.
+    function generateRemoveADCssText(cssSelectorArr){
+        cssSelectorArr.forEach((selector,index)=>{
+            cssSelectorArr[index]=`${selector}{display:none!important}`;//遍历并设置样式.
         });
-        return cssSeletorArr.join(` `);//拼接成字符串.
+        return cssSelectorArr.join(` `);//拼接成字符串.
     }
 
     /**
