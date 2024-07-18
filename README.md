@@ -14,7 +14,7 @@ Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试�
 （删除视频广告和界面广告）
 
 ## 备注
-有问题请在[GitHub](https://github.com/iamfugui/YouTubeADB)找我。
+如果发现通知功能和头像无法正常使用，请自己刷新界面，这是因为YouTube机制限制了功能。或者你可以暂时将该脚本关闭。
 
 ## Introduction
 
@@ -31,4 +31,4 @@ The code has been synchronized to [GitHub](https://github.com/iamfugui/YouTubeAD
 (Remove video ads and interface ads)
 
 ## Remark
-Find me on [GitHub](https://github.com/iamfugui/YouTubeADB) if you have any questions.
+If the notification function and avatar are not working properly, please refresh the page. This issue is due to YouTube's restrictions.Or you can temporarily disable the script.
