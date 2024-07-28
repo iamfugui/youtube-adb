@@ -10,8 +10,7 @@ Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试�
 代码已同步至[GitHub](https://github.com/iamfugui/YouTubeADB)。
 
 <div>
-<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="视频广告">
-<img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="界面广告"> 
+<img width="100%" src="https://github.com/iamfugui/youtube-adb/blob/main/ad.png" alt="ad">
 </div>
 （删除视频广告和界面广告）
 
