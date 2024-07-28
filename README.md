@@ -1,4 +1,4 @@
-## 介绍
+## 介绍 | [English](https://github.com/iamfugui/youtube-adb/edit/main/README-en.md)
 
 用于移除油管广告的[UserScript](https://greasyfork.org/scripts/459541-youtube%E5%8E%BB%E5%B9%BF%E5%91%8A-youtube-ad-blocker)。支持电脑端和移动端。
 
