@@ -1,4 +1,6 @@
-中文 | [English](/README-en.md)
+---
+
+**Chinese | [English](/README-en.md)**
 
 ## 介绍
 
@@ -11,6 +13,8 @@ Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试�
 
 ## 备注
 youtube对不同用户的处理行为是不一样的，如果你无法正常使用该脚本，说明它不适合你。
+
+---
 
 
 
