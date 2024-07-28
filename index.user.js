@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    https://github.com/iamfugui/youtube-adb
-// @version      6.16
+// @version      6.18
 // @description         A script to remove YouTube ads, including static ads and video ads, without interfering with the network and ensuring safety.
 // @description:zh-CN   脚本用于移除YouTube广告，包括静态广告和视频广告。不会干扰网络，安全。
 // @description:zh-TW   腳本用於移除 YouTube 廣告，包括靜態廣告和視頻廣告。不會干擾網路，安全。
@@ -18,8 +18,6 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=YouTube.com
 // @grant        none
 // @license MIT
-// @downloadURL https://update.greasyfork.org/scripts/459541/YouTube%E5%8E%BB%E5%B9%BF%E5%91%8A.user.js
-// @updateURL https://update.greasyfork.org/scripts/459541/YouTube%E5%8E%BB%E5%B9%BF%E5%91%8A.meta.js
 // ==/UserScript==
 (function() {
     `use strict`;
