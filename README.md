@@ -10,4 +10,4 @@ Android推荐使用[Via浏览器](https://viayoo.com/)安装，iOS自行尝试�
 代码已同步至[Greasy Fork](https://greasyfork.org/scripts/459541-youtube-adb)。
 
 ### 备注
-youtube对不同用户的处理行为是不一样的，如果你无法正常使用该脚本，说明它不适合你。
+YouTube对不同用户的处理行为是不一样的，如果你无法正常使用该脚本，说明它不适合你。
