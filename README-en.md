@@ -1,14 +1,16 @@
 **[中文](./README.md) | 英文**
 
-## Introduction
+### Introduction
 
-A [UserScript](https://raw.githubusercontent.com/iamfugui/youtube-adb/main/index.user.js) for removing YouTube ads. Supports both desktop and mobile versions.
+A [UserScript](https://raw.githubusercontent.com/iamfugui/youtube-adb/main/index.user.js) to remove YouTube ads. Supports both desktop and mobile platforms.
 
-For desktop, it is recommended to install using [Tampermonkey](https://www.tampermonkey.net/).
-For Android, it is recommended to install using [Via Browser](https://viayoo.com/); iOS users can try on their own.
+For desktop, it's recommended to use [Tampermonkey](https://www.tampermonkey.net/) for installation. For Android, use the [Via browser](https://viayoo.com/) for installation; iOS users can try on their own.
 
-The code has been synchronized to [Greasy Fork](https://greasyfork.org/scripts/459541-youtube-adb).
+The script is also available on [Greasy Fork](https://greasyfork.org/scripts/459541-youtube-adb).
 
-## Note
+### Usage
+- **Desktop**: 1. Install the [Tampermonkey](https://www.tampermonkey.net/) extension in your Chrome browser. 2. Install the script from [Greasy Fork](https://greasyfork.org/scripts/459541-youtube-adb), or [directly download here](https://raw.githubusercontent.com/iamfugui/youtube-adb/main/index.user.js).
+- **Android**: 1. Install the [Via browser](https://viayoo.com/). 2. Install the script from [Greasy Fork](https://greasyfork.org/scripts/459541-youtube-adb) in the Via browser, or [directly download here](https://raw.githubusercontent.com/iamfugui/youtube-adb/main/index.user.js).
 
-YouTube handles different users differently. If you cannot use the script properly, it means it may not be suitable for you.
+### Note
+YouTube's handling of users varies; if the script does not work for you, it may not be suitable for your situation.
