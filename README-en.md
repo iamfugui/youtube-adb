@@ -1,4 +1,4 @@
-[中文](https://github.com/iamfugui/youtube-adb/edit/main/README.md) | 英文
+[中文](https://github.com/iamfugui/youtube-adb/edit/main/README.md) | English
 
 ## Introduction
 
