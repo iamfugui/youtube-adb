@@ -9,8 +9,8 @@ For desktop, it is recommended to install using [Tampermonkey](https://www.tampe
 The code has been synchronized to [GitHub](https://github.com/iamfugui/YouTubeADB).
 
 <div>
-<img width="500" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/videoad.png" alt="Video Ad">
-<img width="250" src="https://raw.githubusercontent.com/iamfugui/YouTubeADB/main/assets/pagead.png" alt="Interface Ad"> 
+<img width="500" src="https://raw.githubusercontent.com/iamfugui/youtube-adb/main/assets/videoad.png" alt="Video Ad">
+<img width="250" src="https://raw.githubusercontent.com/iamfugui/youtube-adb/main/assets/pagead.png" alt="Interface Ad"> 
 </div>
 (Remove video ads and interface ads)
 
