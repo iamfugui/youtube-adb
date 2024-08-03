@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    https://github.com/iamfugui/youtube-adb
-// @version      6.19
+// @version      6.20
 // @description         A script to remove YouTube ads, including static ads and video ads, without interfering with the network and ensuring safety.
 // @description:zh-CN   脚本用于移除YouTube广告，包括静态广告和视频广告。不会干扰网络，安全。
 // @description:zh-TW   腳本用於移除 YouTube 廣告，包括靜態廣告和視頻廣告。不會干擾網路，安全。
@@ -188,7 +188,7 @@
     * @return {undefined}
     */
     function getVideoDom(){
-        video = document.querySelector('.ad-showing video') || document.querySelector('video');
+        video = document.querySelector(`.ad-showing video`) || document.querySelector(`video`);
     }
 
 
@@ -199,7 +199,7 @@
     function playAfterAd(){
         if(video.paused && video.currentTime<1){
             video.play();
-            log("自动播放视频");
+            log(`自动播放视频`);
         }
     }
 
@@ -219,19 +219,17 @@
         }
 
         // 获取所有具有指定标签的元素
-        const backdrops = document.querySelectorAll('tp-yt-iron-overlay-backdrop');
+        const backdrops = document.querySelectorAll(`tp-yt-iron-overlay-backdrop`);
         // 查找具有特定样式的元素
         const targetBackdrop = Array.from(backdrops).find(
-            (backdrop) => backdrop.style.zIndex === '2201'
+            (backdrop) => backdrop.style.zIndex === `2201`
         );
         // 如果找到该元素，清空其类并移除 open 属性
         if (targetBackdrop) {
-            targetBackdrop.className = ''; // 清空所有类
-            targetBackdrop.removeAttribute('opened'); // 移除 open 属性
+            targetBackdrop.className = ``; // 清空所有类
+            targetBackdrop.removeAttribute(`opened`); // 移除 open 属性
             log(`关闭遮罩层`);
         }
-
-        log(`autoCloseOverlay`);
     }
 
 
@@ -243,20 +241,21 @@
         const skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-skip-ad-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
         const shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`) || document.querySelector(`.ytp-ad-button-icon`);
 
-        if((skipButton || shortAdMsg) && window.location.href.indexOf("https://m.youtube.com/") === -1){ //移动端静音有bug
+        if((skipButton || shortAdMsg) && window.location.href.indexOf(`https://m.youtube.com/`) === -1){ //移动端静音有bug
             video.muted = true;
         }
 
         if(skipButton){
-            //如果使用按钮没有跳过更改
-            if(video.currentTime>0.5){
+            const delayTime = 0.5;
+            setTimeout(skipAd,delayTime*1000);//如果click和call没有跳过更改，直接更改广告时间
+            if(video.currentTime>delayTime){
                 video.currentTime = video.duration;//强制
-                log(`特殊账号跳过按钮广告~~~~~~~~~~~~~`);
+                log(`特殊账号跳过按钮广告`);
                 return;
             }
             skipButton.click();//PC
             nativeTouch.call(skipButton);//Phone
-            log(`按钮跳过广告~~~~~~~~~~~~~`);
+            log(`按钮跳过广告`);
         }else if(shortAdMsg){
             video.currentTime = video.duration;//强制
             log(`强制结束了该广告`);
@@ -274,12 +273,11 @@
             log(`去除播放中的广告功能已在运行`);
             return false
         }
-        let observer;//监听器
-        const targetNode = document.body;//直接监听body变动
 
         //监听视频中的广告并处理
+        const targetNode = document.body;//直接监听body变动
         const config = {childList: true, subtree: true };// 监听目标节点本身与子树下节点的变动
-        observer = new MutationObserver(()=>{getVideoDom();closeOverlay();skipAd();playAfterAd();});//处理视频广告相关
+        const observer = new MutationObserver(()=>{getVideoDom();closeOverlay();skipAd();playAfterAd();});//处理视频广告相关
         observer.observe(targetNode, config);// 以上述配置开始观察广告节点
         log(`运行去除播放中的广告功能成功`);
     }
@@ -293,11 +291,11 @@
     }
 
     if (document.readyState === `loading`) {
-        log(`YouTube去广告脚本即将调用:`);
         document.addEventListener(`DOMContentLoaded`, main);// 此时加载尚未完成
+        log(`YouTube去广告脚本即将调用:`);
     } else {
-        log(`YouTube去广告脚本快速调用:`);
         main();// 此时`DOMContentLoaded` 已经被触发
+        log(`YouTube去广告脚本快速调用:`);
     }
 
 })();
