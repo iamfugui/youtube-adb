@@ -298,4 +298,45 @@
         log(`YouTube去广告脚本快速调用:`);
     }
 
+    let resumeVideo = () => {
+        const videoelem = document.body.querySelector('video.html5-main-video')
+        if (videoelem && videoelem.paused) {
+             console.log('resume video')
+             videoelem.play()
+        }
+    }
+
+    let removePop = node => {
+        const elpopup = node.querySelector('.ytd-popup-container > .ytd-popup-container > .ytd-enforcement-message-view-model')
+
+        if (elpopup) {
+            elpopup.parentNode.remove()
+            console.log('remove popup', elpopup)
+            const bdelems = document
+                .getElementsByTagName('tp-yt-iron-overlay-backdrop')
+            for (var x = (bdelems || []).length; x--;)
+                bdelems[x].remove()
+            resumeVideo()
+        }
+
+        if (node.tagName.toLowerCase() === 'tp-yt-iron-overlay-backdrop') {
+            node.remove()
+            resumeVideo()
+            console.log('remove backdrop', node)
+        }
+    }
+
+    let obs = new MutationObserver(mutations => mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+            Array.from(mutation.addedNodes)
+                .filter(node => node.nodeType === 1)
+                .map(node => removePop(node))
+        }
+    }))
+
+    // have the observer observe foo for changes in children
+    obs.observe(document.body, {
+        childList: true,
+        subtree: true
+    })
 })();
