@@ -29,7 +29,7 @@
     //界面广告选择器
     const cssSelectorArr = [
         `#masthead-ad`,//首页顶部横幅广告.
-        `ytd-rich-item-renderer.style-scope.ytd-rich-grid-row #content:has(.ytd-display-ad-renderer)`,//首页视频排版广告.
+        `ytd-rich-item-renderer:has(ytd-ad-slot-renderer)`,//首页视频排版广告.
         `.video-ads.ytp-ad-module`,//播放器底部广告.
         `tp-yt-paper-dialog:has(yt-mealbar-promo-renderer)`,//播放页会员促销广告.
         `ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]`,//播放页右上方推荐广告.
